@@ -1,0 +1,2 @@
+1. If a payload is not working , try encoding it 
+	- HTML, HTML entity encoder, URI , base64 all other encoding formats and try

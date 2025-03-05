@@ -1,0 +1,41 @@
+1. Look at the open ports and see if you can find anything interesting
+	- netstat -antp
+2. See what processes are running as root and try to exploit them
+	- ps -ef
+3. Check for the files in the home directory . 
+	- Do ls -alh and check for hidden files
+4. Check sudo -l .
+
+5. Check for suid bits 
+	- find / -perm -4000 2>/dev/null
+	- If you find any unknown or unsual files in here , take a loot at them for an exploit 
+
+6. If there is any 7zip with root privileges ,  
+
+7. Old passwords in /etc/security/opasswd
+
+8. strings /dev/mem -n10 | grep -i PASS
+
+9. If you found any application root folder , check HTDOCS directory for config files
+10.Search for SSH files 
+	- find / -name id_rsa -type f 2>/dev/null
+	- You can do this command to check which is user is associated with this ssh key
+		- cat id_rsa| grep -v "KEY" | base64 -d | xxd
+	- After you do this , chmod 600 id_rsa and login with the user in above step
+
+11. Check /etc/hosts for other subdomains
+12. Check if you are inside a container
+		- ls -la /
+13. Check what network interfaces are listed 
+		- ip a
+14. Check what services are running on wireless interfaces
+		- ss -lntp
+15 . Run linpeas and in the section "Processed whose PPID belongs to a different user (not root)"
+		- Check if your user has any listing
+16. Check parent process capabilities section in linpeas
+		- Check in ChatGPT for anything unusual
+
+
+
+FYI -- Do this for colored terminal in reverse shell
+export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31";alias ls='ls --color=auto'

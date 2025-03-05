@@ -1,0 +1,15 @@
+1. If you found input boxes , try to fuzz it to see if any unexpected is found
+	- Take the request in burp and save it and use it in FFUF to fuzz it
+		ffuf -request ssrf.req -w ports -request-proto http -fs 61
+
+2. If you find any input boxes , try SQLi . Try SQLi in every page
+
+3. If you find any way to make a GET request to your local python server , check if it can 
+   access internal   ports using SSRF .
+		- Intercept the http request where the URL is made , and change the the IP to 127.0.0.1 and  
+		  change ports and see if there is any change in response size
+	    - Check this video - https://youtu.be/eggi_GQo9fk
+
+4. Do gobuster and ffuf for subdomain enum
+5. If there is any login page , check for default creds
+6. robots.txt
