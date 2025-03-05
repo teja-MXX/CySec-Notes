@@ -13,3 +13,27 @@
 4. Do gobuster and ffuf for subdomain enum
 5. If there is any login page , check for default creds
 6. robots.txt
+7. Check if it nginx or apache or IIS
+8. Check the website and see if we can open any links . Investigate all the links pages
+9. Check source page . Check if there are any javascript files
+10. Do gobuster . Subdir enum 
+	a. Use /opt/SecLists/Discovery/Web-Content/raft-small-words.txt
+11. Check if the page is PHP or HTML
+12. If you see login page , check for default creds like admin:password . Or google for default credentials of that login service
+13. Or check for exploit
+14. If you login , check if you can upload reverse shell 
+15. Do fuzzing with ffuf for subdomains , subdirectories and username passwords or files
+	a. How to Fuzz Web Applications using FFuf – Web Security Tutorial
+16. Check if there is any .git subdir and try to dump the git repo using git-dumper 
+	a. If yes , do grep password -R and try to search passwords
+17. When you get reverse shell , check for DB in config files any mention of DB . Either in website root folder or in Apache directory or something
+18. If you found any hash - az
+	a. Open crackstation to crack the hash
+	b. Or hash-identifier to find the hash type
+	c. Once identified use hashcat or john the ripper
+19. If you don't find anything juicy in dir buster , do recursive search on all found directories until you find something useful
+20. If you found dev in subdomain enum , try .git subdirectory to see if any git is there 
+	a. If 403 error is there , acess forbidden --- > Try to use git-dumper to dump the repo if you can
+21. If there is a Dockerfile , check for config file if we can access for username or passwords or other config files
+22. If you can read files , check the IMPORTANT FILES which can get you interesting info
+23. Do code review Code Review if code is available through git dump 
