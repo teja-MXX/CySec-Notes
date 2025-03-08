@@ -1,5 +1,8 @@
 1. Look at the open ports and see if you can find anything interesting
 	- netstat -antp
+	a. If you find anything interesting , check what process is running
+	   behind it
+	   	- lsof -i :<PORT_NUMBER>
 2. See what processes are running as root and try to exploit them
 	- ps -ef
 3. Check for the files in the home directory . 
