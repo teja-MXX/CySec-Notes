@@ -20,7 +20,8 @@
 8. strings /dev/mem -n10 | grep -i PASS
 
 9. If you found any application root folder , check HTDOCS directory for config files
-10.Search for SSH files 
+
+10. Search for SSH files 
 	- find / -name id_rsa -type f 2>/dev/null
 	- You can do this command to check which is user is associated with this ssh key
 		- cat id_rsa| grep -v "KEY" | base64 -d | xxd
@@ -37,6 +38,9 @@
 		- Check if your user has any listing
 16. Check parent process capabilities section in linpeas
 		- Check in ChatGPT for anything unusual
+
+17. Check for capabilites in linpeas, if any library has setuid to get root
+    access
 
 
 
