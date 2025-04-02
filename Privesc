@@ -5,12 +5,15 @@
 	   	- lsof -i :<PORT_NUMBER>
 2. See what processes are running as root and try to exploit them
 	- ps -ef
+	- If you find anything interesting , do
+		- lsof -p <PID>
 3. Check for the files in the home directory . 
 	- Do ls -alh and check for hidden files
 4. Check sudo -l .
 
 5. Check for suid bits 
 	- find / -perm -4000 2>/dev/null
+	- find / -perm -4000 -user root -writable 2>/dev/null
 	- If you find any unknown or unsual files in here , take a loot at them for an exploit 
 
 6. If there is any 7zip with root privileges ,  
@@ -42,7 +45,21 @@
 17. Check for capabilites in linpeas, if any library has setuid to get root
     access
 
+18. If you can find any SUID root program to run or read files using LESS pager , you 
+    can get a root shell when resizing the terminal
+		- Refer https://github.com/advisories/GHSA-qgrc-7333-5cgx
+		- EXPLOIT
+			- Set export PAGER=less
+			- Then try to run the suid binary as root to read any file and resize the
+			  terminal when less is not opened yet
+			- Then open /bin/sh just like how you execute commands in vim to get root
+			  shell
 
+19. Check for environment variables or the hidden .env files using ls -al
+20. Check for mails also . See mails section also in linpeas
 
 FYI -- Do this for colored terminal in reverse shell
 export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31";alias ls='ls --color=auto'
+
+ldapsearch -x -H ldap://127.0.0.1 -b "dc=monitored,dc=htb"
+

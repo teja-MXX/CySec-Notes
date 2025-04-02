@@ -1,0 +1,58 @@
+1. List commit history:
+    - git log --oneline --graph --decorate --all
+
+2. See detailed commit history (may contain secrets):
+    - git log -p
+
+3. Check .git/config for remote URLs:
+    - cat .git/config
+
+4. Check for stored credentials:
+    - cat .git-credentials
+
+5. Search for Hardcoded Secrets
+    1. Find "password", "key", or "secret" in the repo:
+        - grep -RiE '(password|passwd|secret|api|key|token)' . 2>/dev/null
+
+    2. Search for SSH keys:
+        - find . -name "id_rsa*"
+
+    3. Check .env files for credentials (Common in web apps):
+        - find . -name ".env" -exec cat {} \;
+
+6. Reveal Untracked & Deleted Files
+    1. List uncommitted changes:
+        - git status
+    
+    2. Restore deleted files from history:
+        - git fsck --full
+        - git checkout -- .
+    
+    3. Find all file paths ever committed:
+        - git ls-files
+
+7. Check for API Keys in Commits
+    1. Find past credentials in commits:
+        - git log -p | grep -i 'API\|KEY\|TOKEN'
+
+    2. Find exposed AWS Keys (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY):
+        grep -r "AWS_SECRET_ACCESS_KEY" .
+
+8. Recover Old Versions of Files
+    1. List all branches (in case there are hidden ones): 
+        - git branch -a
+    
+    2. Recover all old commits & deleted files:
+        - git reflog
+            (Then, checkout to an old state: git checkout <commit-hash>.)
+    
+9. Extract Git Users
+    1. Find commit authors:
+        - git log --format='%an <%ae>' | sort -u
+
+
+
+
+
+
+

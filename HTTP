@@ -1,69 +1,72 @@
-1. If you found input boxes , try to fuzz it to see if any unexpected is found
+- Check if there is .git endpoint in all subdomains
+-. If you found input boxes , try to fuzz it to see if any unexpected is found
 	- Take the request in burp and save it and use it in FFUF to fuzz it
 		ffuf -request ssrf.req -w ports -request-proto http -fs 61
 
-2. If you find any input boxes , try SQLi . Try SQLi in every page
+- If you find any input boxes , try SQLi . Try SQLi in every page
 
-3. If you find any way to make a GET request to your local python server , check if it can 
+- If you find any way to make a GET request to your local python server , check if it can 
    access internal   ports using SSRF .
 		- Intercept the http request where the URL is made , and change the the IP to 127.0.0.1 and  
 		  change ports and see if there is any change in response size
 	    - Check this video - https://youtu.be/eggi_GQo9fk
 
-4. Do gobuster and ffuf for subdomain enum
+- Do gobuster and ffuf for subdomain enum
 
-5. If there is any login page , check for default creds
+- If there is any login page , check for default creds
 
-6. robots.txt
+- robots.txt
 
-7. Check if it nginx or apache or IIS
+- Check if it nginx or apache or IIS
 
-8. Check the website and see if we can open any links . Investigate all the links pages
+- Check the website and see if we can open any links . Investigate all the links pages
 
-9. Check source page . Check if there are any javascript files
-10. Do gobuster . Subdir enum 
+- Check source page . Check if there are any javascript files
+- Do gobuster . Subdir enum 
 	a. Use /opt/SecLists/Discovery/Web-Content/raft-small-words.txt
-11. Check if the page is PHP or HTML
+- Check if the page is PHP or HTML
 
-12. If you see login page , check for default creds like admin:password . Or google for default credentials of that login service
+- If you see login page , check for default creds like admin:password . Or google for default credentials of that login service
 
-13. Or check for exploit
+- Or check for exploit
 
-14. If you login , check if you can upload reverse shell 
+- If you login , check if you can upload reverse shell 
 
-15. Do fuzzing with ffuf for subdomains , subdirectories and username passwords or files
+- Do fuzzing with ffuf for subdomains , subdirectories and username passwords or files
 	a. How to Fuzz Web Applications using FFuf – Web Security Tutorial
 
-16. Check if there is any .git subdir and try to dump the git repo using git-dumper 
+- Check if there is any .git subdir and try to dump the git repo using git-dumper 
 	a. If yes , do grep password -R and try to search passwords
 
-17. When you get reverse shell , check for DB in config files any mention of DB . Either in website root folder or in Apache directory or something
+- When you get reverse shell , check for DB in config files any mention of DB . Either in website root folder or in Apache directory or something
 
-18. If you found any hash - az
+- If you found any hash - az
 	a. Open crackstation to crack the hash
 	b. Or hash-identifier to find the hash type
 	c. Once identified use hashcat or john the ripper
 
-19. If you don't find anything juicy in dir buster , do recursive search on all found directories until you find something useful
+- If you don't find anything juicy in dir buster , do recursive search on all found directories until you find something useful
 
-20. If you found dev in subdomain enum , try .git subdirectory to see if any git is there 
+- If you found dev in subdomain enum , try .git subdirectory to see if any git is there 
 	a. If 403 error is there , acess forbidden --- > Try to use git-dumper to dump the repo if you can
 
-21. If there is a Dockerfile , check for config file if we can access for username or passwords or other config files
+- If there is a Dockerfile , check for config file if we can access for username or passwords or other config files
 
-22. If you can read files , check the IMPORTANT FILES which can get you interesting info
+- If you can read files , check the IMPORTANT FILES which can get you interesting info
 
-23. Do code review Code Review if code is available through git dump 
+- Do code review Code Review if code is available through git dump 
 
-24. Check for Server and it's version by doing curl request
+- Check for Server and it's version by doing curl request
 		- curl -I http://<target-ip>:<port>
 
-25. If the server is spring boot , check actuator endpoint 
+- If the server is spring boot , check actuator endpoint 	
 		- http://<target-ip>:<port>/actuator/env
 		- http://<target-ip>:<port>/actuator/heapdump
 		- http://<target-ip>:<port>/actuator
 		- http://<target-ip>:<port>/actuator/mappings
 		- http://<target-ip>:<port>/actuator/loggers
 
-26. If you know the framework , try to bust it common endpoints like above for springboot
+- If you know the framework , try to bust it common endpoints like above for springboot
+
+- If you find Maven project , check the pom.xml if any jars are vulnerable by uploading in chatGPT
 

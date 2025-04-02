@@ -1,0 +1,40 @@
+1. Check Dockerfile
+    - find / -name Dockerfile 2>/dev/null and see if that's the file you
+      are looking for
+
+2. Ping all the IP address in the docker subnet to see which one is 
+   responding
+    For example - 
+        docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
+        link/ether 02:42:d0:49:4c:2f brd ff:ff:ff:ff:ff:ff
+        inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+        valid_lft forever preferred_lft forever
+
+    Ping IP address 172.17.0.2 172.17.0.3 and so on
+
+3. If you find any ping response , then check which port is open for that IP
+        - Run below port scanner
+
+        for port in {1..65535}; do
+        echo > /dev/tcp/$IP/$port && echo "$Port Open"; done 2>/dev/null
+
+    And if you do find a port open , try to port forward
+
+4. Once you login into docker container, check for capablities you have using 
+   below command
+    -- capsh --print 
+
+  
+5. Check for Running Docker Containers
+    First, check if there are any running containers:
+        docker ps
+    Look for containers that are running as root or have a misconfigured setup. Docker containers usually run as the user specified in the Dockerfile, but there may be vulnerabilities or 
+    misconfigurations that allow privilege escalation.
+
+6. Check Docker Socket Permissions
+    One of the most common privilege escalation methods with Docker involves 
+    accessing the Docker socket. The Docker daemon usually runs 
+    as root and can execute arbitrary commands.
+        ls -l /var/run/docker.sock
+
+
